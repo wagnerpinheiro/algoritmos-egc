@@ -206,6 +206,48 @@ void rota_3(){
   delay(random_time);  
 }
 
+//rota de apoio para calculo da velocidade
+void rota_aux_4(){
+  delay(t_m * 2);
+  digitalWrite(tra_en, HIGH);
+  digitalWrite(tra_fr, HIGH); //frente        
+  delay(1000);
+  digitalWrite(tra_en, LOW); //desliga
+  delay(3000); //aguarda 3s para medir
+}
+
+//prova de conceito - trajetoria 1
+void rota_5(){  
+  delay(t_m * 2);
+  digitalWrite(tra_en, HIGH);
+  if(estado==0){  
+    estado = 1;
+    digitalWrite(tra_fr, HIGH); //frente        
+  }else{    
+    estado = 0;  
+    digitalWrite(tra_tr, HIGH); //ré
+  }
+  delay(2500); //tempo para percorrer 3m
+}
+
+//prova de conceito - trajetoria 2
+void rota_6(){  
+  delay(t_m * 2);
+  digitalWrite(tra_en, HIGH);
+  digitalWrite(dir_en, HIGH);
+  digitalWrite(dir_di, HIGH); //roda sempre para direita
+  delay(t_m);
+  if(estado==0){  
+    estado = 1;
+    digitalWrite(tra_fr, HIGH); //frente        
+  }else{    
+    estado = 0;  
+    digitalWrite(tra_tr, HIGH); //ré
+  }
+  delay(4580); //tempo para percorrer o perimetro com 5,49m
+}
+
+
 
 
 
