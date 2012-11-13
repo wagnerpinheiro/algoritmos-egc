@@ -28,6 +28,12 @@ int estado = 0;
 int s1,s2,cd = 0;
 long random_dir, random_time;
 
+//variaveis para prova de conceito
+float velocidade = 0.5; //m/s
+float d_trajetoria_1 = 2; //distancia para trajetoria 1
+float d_trajetoria_2 = 0.8; //lateral do quadrado circunscrito
+float p, t;
+
 void setup() {
   Serial.begin(9600);
 
@@ -80,10 +86,10 @@ void loop() {
   Serial.println("--------------------");
 
   if(s1==LOW && s2==HIGH && cd==HIGH){
-    rota_1();
+    rota_5();
   }
   else if(s2==LOW && s1==HIGH && cd==HIGH){
-    rota_2();    
+    rota_6();    
   }
   else if(s2==LOW && s1==LOW){    
     rota_3();
@@ -207,7 +213,7 @@ void rota_3(){
 }
 
 //rota de apoio para calculo da velocidade
-void rota_aux_4(){
+void rota_4(){
   delay(t_m * 2);
   digitalWrite(tra_en, HIGH);
   digitalWrite(tra_fr, HIGH); //frente        
@@ -227,7 +233,10 @@ void rota_5(){
     estado = 0;  
     digitalWrite(tra_tr, HIGH); //ré
   }
-  delay(2500); //tempo para percorrer 3m
+  t = (d_trajetoria_1/velocidade) * 1000;
+  //t = t - (t_m * 2); //subtraia o tempo de manobra
+  Serial.println(t);
+  delay(t); //tempo para percorrer distancia para trajetoria 1
 }
 
 //prova de conceito - trajetoria 2
@@ -244,7 +253,10 @@ void rota_6(){
     estado = 0;  
     digitalWrite(tra_tr, HIGH); //ré
   }
-  delay(4580); //tempo para percorrer o perimetro com 5,49m
+  p = 3.1415 * (d_trajetoria_2 * sqrt(2));
+  t = (p / velocidade) * 1000;
+  Serial.println(t);
+  delay(t); //tempo para percorrer o perimetro da trajetoria 2
 }
 
 
