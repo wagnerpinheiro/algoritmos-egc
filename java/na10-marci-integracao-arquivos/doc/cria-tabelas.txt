@@ -1,0 +1,29 @@
+create table cliente(
+id_cliente integer not null primary key generated always as identity(start with 1, increment by 1),
+nome varchar(50) not null,
+endereco varchar(100),
+cpf varchar(15) not null,
+unique(cpf)
+);
+
+create table pedido(
+id_pedido integer not null primary key generated always as identity(start with 1, increment by 1),
+id_cliente integer not null references cliente(id_cliente),
+data_criacao date not null
+);
+
+create table produto(
+id_produto integer not null primary key generated always as identity(start with 1, increment by 1),
+fornecedor varchar(50),
+categoria varchar(20),
+descricao varchar(50),
+unique(fornecedor,categoria,descricao)
+);
+
+create table PedidoItem(
+id_pedido_item integer not null primary key generated always as identity(start with 1, increment by 1),
+id_pedido integer not null references pedido(id_pedido),
+id_produto integer not null references produto(id_produto),
+quantidade integer,
+unique(id_pedido,id_produto)
+);
